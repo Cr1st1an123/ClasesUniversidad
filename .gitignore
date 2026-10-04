@@ -1,0 +1,8 @@
+# Documentos de tesis (contienen información interna de SIMA y datos personales).
+# El repositorio es público: no subir hasta que se decida hacerlo privado.
+documentos/originales/*
+documentos/md/*
+documentos/corregidos/
+documentos/revision/
+!documentos/originales/.gitkeep
+!documentos/md/.gitkeep
