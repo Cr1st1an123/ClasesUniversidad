@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de pruebas · Sabor Limeño</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; background: #f4f4f4; color: #222; }
+    h1 { margin-top: 0; }
+    section { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+    .nota { background: #fff6d6; border: 1px solid #e8d48a; padding: 0.75rem; border-radius: 6px; }
+    input, select, button { font: inherit; padding: 0.4rem 0.6rem; margin: 0.15rem; }
+    button { cursor: pointer; }
+    table { border-collapse: collapse; width: 100%; }
+    td, th { border-bottom: 1px solid #eee; padding: 0.4rem; text-align: left; vertical-align: top; }
+    .pedido { border: 1px solid #ddd; border-radius: 6px; padding: 0.5rem; margin: 0.5rem 0; }
+    .estado { font-weight: 700; }
+    .alerta { color: #b3261e; font-weight: 700; }
+    #mensaje { font-weight: 600; }
+    a { word-break: break-all; }
+  </style>
+  <script type="module" src="panel-pruebas.js"></script>
+</head>
+<body>
+  <h1>Panel de pruebas</h1>
+  <p class="nota">
+    Herramienta <strong>temporal</strong> para probar la web del cliente mientras no exista la aplicación Android.
+    Simula las acciones del personal (mesero, cocina y cajero). No forma parte del entregable y no se publica.
+  </p>
+  <p id="mensaje" role="status"></p>
+
+  <section id="seccion-sesion">
+    <h2>Sesión del personal</h2>
+    <form id="form-login">
+      <input id="correo" type="email" placeholder="correo" required autocomplete="username">
+      <input id="clave" type="password" placeholder="contraseña" required autocomplete="current-password">
+      <button type="submit">Ingresar</button>
+    </form>
+    <div id="sesion-activa" hidden>
+      <span id="info-usuario"></span>
+      <button id="btn-salir" type="button">Cerrar sesión</button>
+    </div>
+  </section>
+
+  <div id="contenido" hidden>
+    <section>
+      <h2>Datos de ejemplo</h2>
+      <button id="btn-semilla" type="button">Cargar productos y 10 mesas de ejemplo</button>
+      <span>(solo crea lo que falte)</span>
+    </section>
+
+    <section>
+      <h2>Mesas</h2>
+      <table>
+        <thead><tr><th>Mesa</th><th>Enlace del QR (web del cliente)</th><th>Atención</th><th>Acciones</th></tr></thead>
+        <tbody id="tabla-mesas"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Pedidos de atenciones abiertas</h2>
+      <div id="lista-pedidos"></div>
+    </section>
+
+    <section>
+      <h2>Productos</h2>
+      <table>
+        <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Disponible</th></tr></thead>
+        <tbody id="tabla-productos"></tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>

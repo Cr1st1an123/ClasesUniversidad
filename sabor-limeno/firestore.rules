@@ -1,0 +1,98 @@
+rules_version = '2';
+
+// Reglas de seguridad de Cloud Firestore para Sabor Limeño.
+// - El personal (mesero, cocina, cajero, administrador) inicia sesión con Firebase Authentication
+//   y debe tener un documento activo en la colección "usuarios".
+// - El cliente NO inicia sesión: solo conoce el identificador aleatorio de su mesa (el del QR).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function usuario() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+    function esPersonal() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+        && usuario().activo == true;
+    }
+    function esAdmin() {
+      return esPersonal() && usuario().rol == 'administrador';
+    }
+
+    match /usuarios/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || esAdmin());
+      allow write: if esAdmin();
+    }
+
+    // La carta es pública; solo el administrador la modifica.
+    match /productos/{productoId} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // El id de cada mesa es aleatorio y es el que va en su QR.
+    // Cualquiera con el QR puede leer SU mesa (get), pero nadie sin sesión puede listarlas todas.
+    match /mesas/{mesaId} {
+      allow get: if true;
+      allow list: if esPersonal();
+      allow write: if esPersonal();
+    }
+
+    match /atenciones/{atencionId} {
+      function atencionAbierta() {
+        return get(/databases/$(database)/documents/atenciones/$(atencionId)).data.abierta == true;
+      }
+
+      // Leer una atención exige conocer su id, que solo se obtiene desde el QR mientras está abierta.
+      // No se bloquea la lectura al cerrarla: si un listener pierde el permiso de golpe, el SDK web
+      // deja de recibir cambios de las demás consultas de esa página.
+      allow get: if true;
+      allow list, create: if esPersonal();
+      allow delete: if false;
+      // El cliente solo puede marcar "cuenta solicitada".
+      allow update: if esPersonal()
+        || (resource.data.abierta == true
+            && request.resource.data.diff(resource.data).affectedKeys()
+                 .hasOnly(['cuentaSolicitada', 'fechaSolicitudCuenta'])
+            && request.resource.data.cuentaSolicitada == true
+            && request.resource.data.fechaSolicitudCuenta == request.time);
+
+      match /pedidos/{pedidoId} {
+        allow read: if true; // mismo criterio que la atención: hace falta conocer su id
+        allow delete: if false;
+
+        // El cliente crea pedidos "Por confirmar" en la atención abierta de su mesa.
+        allow create: if esPersonal()
+          || (atencionAbierta()
+              && request.resource.data.keys().hasOnly(
+                   ['items', 'observaciones', 'total', 'mesaId', 'mesaNumero',
+                    'estado', 'origen', 'fechaCreacion'])
+              && request.resource.data.estado == 'POR_CONFIRMAR'
+              && request.resource.data.origen == 'CLIENTE'
+              && request.resource.data.mesaId
+                   == get(/databases/$(database)/documents/atenciones/$(atencionId)).data.mesaId
+              && request.resource.data.items is list
+              && request.resource.data.items.size() > 0
+              && request.resource.data.items.size() <= 30
+              && request.resource.data.total is number
+              && request.resource.data.total > 0
+              && request.resource.data.observaciones is string
+              && request.resource.data.observaciones.size() <= 200
+              && request.resource.data.fechaCreacion == request.time);
+
+        // El cliente solo puede cancelar sus pedidos mientras estén "Por confirmar".
+        allow update: if esPersonal()
+          || (atencionAbierta()
+              && resource.data.estado == 'POR_CONFIRMAR'
+              && request.resource.data.estado == 'CANCELADO'
+              && request.resource.data.diff(resource.data).affectedKeys()
+                   .hasOnly(['estado', 'motivo', 'canceladoPor', 'fechaCancelacion'])
+              && request.resource.data.canceladoPor == 'CLIENTE'
+              && request.resource.data.motivo is string
+              && request.resource.data.motivo.size() > 0
+              && request.resource.data.motivo.size() <= 200
+              && request.resource.data.fechaCancelacion == request.time);
+      }
+    }
+  }
+}
