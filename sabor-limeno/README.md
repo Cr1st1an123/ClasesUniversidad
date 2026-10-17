@@ -84,7 +84,11 @@ y abre <http://localhost:5500/herramientas/panel-pruebas.html>.
    - En **Nuestra carta**, elige una categoría (Entradas, Platos…) y pulsa **+ Agregar** en los productos.
    - Abajo, toca la pestaña **Mi pedido**: ajusta cantidades con `−` / `+`, escribe una observación y pulsa **Enviar pedido**.
    - La web pasa sola a **Mis pedidos**, donde el pedido aparece *Por confirmar*.
-5. En el panel, **Confirmar**, **Iniciar preparación**, **Marcar listo** y **Entregar**: la web del cliente se actualiza sola.
+5. Vuelve a la pestaña del **panel de pruebas** y baja a la sección **Pedidos de atenciones abiertas**. En cada pedido pulsa,
+   en orden, **Confirmar (mesero)**, **Iniciar preparación (cocina)**, **Marcar listo (cocina)** y **Entregar (mesero)**.
+   Después de cada clic, la web del cliente se actualiza sola.
+   > El botón **Solicitar cuenta** del cliente se activa cuando el mesero confirma al menos un pedido;
+   > los pedidos *Por confirmar* todavía no se suman a la cuenta.
 6. En el cliente, **Solicitar cuenta**; en el panel aparece “¡Cuenta solicitada!”.
 7. En el panel, **Registrar pago y cerrar**: la web del cliente vuelve a la carta y ya no deja pedir.
 

@@ -430,9 +430,11 @@ function renderSeguimiento() {
   const cobrables = pedidos.filter((p) => ESTADOS_COBRABLES.includes(p.estado));
   const porConfirmar = suma(pedidos.filter((p) => p.estado === "POR_CONFIRMAR"));
   $("total-cuenta").textContent = soles(suma(cobrables));
-  $("nota-cuenta").textContent = porConfirmar > 0
-    ? `Además tiene ${soles(porConfirmar)} en pedidos por confirmar; se sumarán cuando el mesero los confirme.`
-    : "Solo se cobran los pedidos confirmados por el mesero.";
+  const notas = [];
+  if (porConfirmar > 0) notas.push(`Tiene ${soles(porConfirmar)} en pedidos por confirmar; se sumarán cuando el mesero los confirme.`);
+  if (cobrables.length === 0) notas.push("Podrá solicitar la cuenta cuando el mesero confirme al menos uno de sus pedidos.");
+  else notas.push("Solo se cobran los pedidos confirmados por el mesero.");
+  $("nota-cuenta").textContent = notas.join(" ");
 
   const solicitada = estado.atencion?.cuentaSolicitada === true;
   $("btn-solicitar-cuenta").hidden = solicitada;
