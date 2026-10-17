@@ -70,7 +70,9 @@ y abre <http://localhost:5500/herramientas/panel-pruebas.html>.
 ### Recorrido de prueba
 1. En el **panel de pruebas**, ingresa con el usuario administrador.
 2. Pulsa **Cargar productos y 10 mesas de ejemplo**.
-3. En la Mesa 4 pulsa **Abrir atención** y abre su enlace (ese es el enlace que irá en el QR).
+3. En la tabla **Mesas**, fila *Mesa 4*, pulsa **Abrir atención**. Luego haz clic en el enlace de la columna
+   **Enlace del QR (web del cliente)**: se abre una pestaña nueva con la **web del cliente** (es lo que verá
+   quien escanee el QR). No abras `web-cliente/index.html` directamente: sin el `?m=...` del enlace no sabe qué mesa es.
    Para verlo como en un celular, abre las herramientas de desarrollo de Chrome con cualquiera de estas formas:
    - `F12` (en muchas laptops hay que pulsar `Fn + F12`).
    - `Ctrl + Shift + I`.
@@ -78,7 +80,10 @@ y abre <http://localhost:5500/herramientas/panel-pruebas.html>.
    - Menú `⋮` → **Más herramientas** → **Herramientas para desarrolladores**.
 
    Luego pulsa el icono de celular/tablet de la barra de herramientas (o `Ctrl + Shift + M`) y elige un modelo, por ejemplo *iPhone 12 Pro*.
-4. En la web del cliente agrega productos, escribe una observación y pulsa **Enviar pedido**.
+4. En esa pestaña (web del cliente):
+   - En **Nuestra carta**, elige una categoría (Entradas, Platos…) y pulsa **+ Agregar** en los productos.
+   - Abajo, toca la pestaña **Mi pedido**: ajusta cantidades con `−` / `+`, escribe una observación y pulsa **Enviar pedido**.
+   - La web pasa sola a **Mis pedidos**, donde el pedido aparece *Por confirmar*.
 5. En el panel, **Confirmar**, **Iniciar preparación**, **Marcar listo** y **Entregar**: la web del cliente se actualiza sola.
 6. En el cliente, **Solicitar cuenta**; en el panel aparece “¡Cuenta solicitada!”.
 7. En el panel, **Registrar pago y cerrar**: la web del cliente vuelve a la carta y ya no deja pedir.
