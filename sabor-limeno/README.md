@@ -71,7 +71,13 @@ y abre <http://localhost:5500/herramientas/panel-pruebas.html>.
 1. En el **panel de pruebas**, ingresa con el usuario administrador.
 2. Pulsa **Cargar productos y 10 mesas de ejemplo**.
 3. En la Mesa 4 pulsa **Abrir atención** y abre su enlace (ese es el enlace que irá en el QR).
-   Para verlo como en un celular: en Chrome pulsa `F12` y luego el icono de dispositivo móvil (`Ctrl+Shift+M`).
+   Para verlo como en un celular, abre las herramientas de desarrollo de Chrome con cualquiera de estas formas:
+   - `F12` (en muchas laptops hay que pulsar `Fn + F12`).
+   - `Ctrl + Shift + I`.
+   - Clic derecho sobre la página → **Inspeccionar**.
+   - Menú `⋮` → **Más herramientas** → **Herramientas para desarrolladores**.
+
+   Luego pulsa el icono de celular/tablet de la barra de herramientas (o `Ctrl + Shift + M`) y elige un modelo, por ejemplo *iPhone 12 Pro*.
 4. En la web del cliente agrega productos, escribe una observación y pulsa **Enviar pedido**.
 5. En el panel, **Confirmar**, **Iniciar preparación**, **Marcar listo** y **Entregar**: la web del cliente se actualiza sola.
 6. En el cliente, **Solicitar cuenta**; en el panel aparece “¡Cuenta solicitada!”.
