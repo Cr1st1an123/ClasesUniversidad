@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
   <title>Panel de pruebas · Sabor Limeño</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 0; padding: 1rem; background: #f4f4f4; color: #222; }
@@ -20,13 +21,13 @@
     #mensaje { font-weight: 600; }
     a { word-break: break-all; }
   </style>
-  <script type="module" src="panel-pruebas.js"></script>
+  <script type="module" src="panel.js"></script>
 </head>
 <body>
   <h1>Panel de pruebas</h1>
   <p class="nota">
     Herramienta <strong>temporal</strong> para probar la web del cliente mientras no exista la aplicación Android.
-    Simula las acciones del personal (mesero, cocina y cajero). No forma parte del entregable y no se publica.
+    Simula las acciones del personal (mesero, cocina y cajero). Solo el personal registrado puede usarlo. No forma parte del entregable.
   </p>
   <p id="mensaje" role="status"></p>
 

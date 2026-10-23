@@ -11,13 +11,14 @@ sabor-limeno/
 ├── web-cliente/              ← lo que se publica (Firebase Hosting)
 │   ├── index.html            ← las 3 pantallas: Carta, Mi pedido, Mis pedidos
 │   ├── css/estilos.css
-│   └── js/
-│       ├── firebase-config.js  ← AQUÍ van los datos de tu proyecto de Firebase
-│       ├── firebase.js         ← inicializa Firebase
-│       ├── datos.js            ← acceso a Firestore (lecturas y escrituras)
-│       └── app.js              ← lógica de las pantallas
-├── herramientas/
-│   └── panel-pruebas.html    ← panel TEMPORAL que simula al personal (no se publica)
+│   ├── js/
+│   │   ├── firebase-config.js  ← AQUÍ van los datos de tu proyecto de Firebase
+│   │   ├── firebase.js         ← inicializa Firebase
+│   │   ├── datos.js            ← acceso a Firestore (lecturas y escrituras)
+│   │   └── app.js              ← lógica de las pantallas
+│   └── panel/                ← panel TEMPORAL que simula al personal (se publica en /panel/)
+│       ├── index.html
+│       └── panel.js
 ├── firestore.rules           ← reglas de seguridad de la base de datos
 └── firebase.json             ← configuración de Firebase CLI
 ```
@@ -57,15 +58,17 @@ Los archivos usan módulos de JavaScript, así que **no funcionan abriendo el HT
 **Opción A (recomendada): Visual Studio Code + extensión *Live Server***
 1. Abre la carpeta `sabor-limeno` en VS Code.
 2. Instala la extensión **Live Server** (de Ritwick Dey).
-3. Clic derecho sobre `herramientas/panel-pruebas.html` → **Open with Live Server**.
+3. Clic derecho sobre `web-cliente/panel/index.html` → **Open with Live Server**.
 
 **Opción B: Python** (si lo tienes instalado), desde la carpeta `sabor-limeno`:
 ```
 python -m http.server 5500
 ```
-y abre <http://localhost:5500/herramientas/panel-pruebas.html>.
+y abre <http://localhost:5500/web-cliente/panel/>. Esa dirección solo funciona mientras la terminal siga abierta.
 
 > Android Studio no se usa para esta parte; es solo para la app del personal.
+>
+> Después de publicar (Paso 3) ya no necesitas servidor local: el panel queda en `https://TU-PROYECTO.web.app/panel/`.
 
 ### Recorrido de prueba
 1. En el **panel de pruebas**, ingresa con el usuario administrador.
@@ -103,11 +106,15 @@ firebase login
 firebase use --add            (elige tu proyecto)
 firebase deploy --only hosting,firestore:rules
 ```
-La web quedará en `https://TU-PROYECTO.web.app`. El enlace de cada mesa será:
-```
-https://TU-PROYECTO.web.app/?m=ID_DE_LA_MESA
-```
-El panel de pruebas muestra el id de cada mesa. Con cada enlace genera el QR en cualquier generador gratuito e imprímelo.
+Quedarán publicados:
+- **Web del cliente:** `https://TU-PROYECTO.web.app` (cada mesa: `https://TU-PROYECTO.web.app/?m=ID_DE_LA_MESA`).
+- **Panel de pruebas:** `https://TU-PROYECTO.web.app/panel/`. Funciona sin servidor local, desde cualquier computadora o tablet;
+  solo pueden usarlo los usuarios registrados en la colección `usuarios`.
+
+Abriendo el panel desde la dirección publicada, la columna *Enlace del QR* ya muestra el enlace público de cada mesa:
+cópialo, genera el QR en cualquier generador gratuito e imprímelo.
+
+Cada vez que cambies algo de la web o del panel, vuelve a ejecutar `firebase deploy --only hosting`.
 
 ## Notas
 

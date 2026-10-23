@@ -1,6 +1,6 @@
 // Panel de pruebas: simula al personal (mesero, cocina y cajero) para probar la web del cliente.
 // Será reemplazado por la aplicación Android.
-import { app, db, modoEmulador } from "../web-cliente/js/firebase.js";
+import { app, db, modoEmulador } from "../js/firebase.js";
 import {
   connectAuthEmulator, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -76,12 +76,11 @@ async function ejecutar(accion) {
   }
 }
 
-// Enlace que irá en el QR de cada mesa.
+// Enlace que irá en el QR de cada mesa. Publicado en Hosting queda como https://TU-PROYECTO.web.app/?m=ID
 function enlaceMesa(mesaId) {
-  const url = new URL("../web-cliente/index.html", location.href);
-  url.searchParams.set("m", mesaId);
-  if (modoEmulador) url.searchParams.set("emulador", "");
-  return url.href.replace("emulador=", "emulador");
+  const url = new URL("../", location.href);
+  url.search = `?m=${mesaId}${modoEmulador ? "&emulador" : ""}`;
+  return url.href;
 }
 
 function idAleatorio(largo = 10) {
