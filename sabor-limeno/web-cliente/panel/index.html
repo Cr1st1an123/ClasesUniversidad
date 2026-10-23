@@ -20,7 +20,25 @@
     .alerta { color: #b3261e; font-weight: 700; }
     #mensaje { font-weight: 600; }
     a { word-break: break-all; }
+    #dialogo-qr { border: none; border-radius: 10px; padding: 1.25rem; }
+    #dialogo-qr::backdrop { background: rgba(0, 0, 0, 0.45); }
+    .acciones-qr { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem; }
+    .tarjeta-qr { box-sizing: border-box; width: 9cm; padding: 0.6cm; border: 2px solid #b5442a; border-radius: 12px; text-align: center; color: #2b211c; background: #fff; }
+    .tarjeta-qr .marca { margin: 0; font-family: Georgia, serif; font-size: 1.5rem; color: #8f3520; }
+    .tarjeta-qr .numero { margin: 0.2rem 0 0.4rem; font-size: 2rem; font-weight: 800; }
+    .tarjeta-qr svg { width: 6.5cm; height: 6.5cm; display: block; margin: 0 auto; }
+    .tarjeta-qr .instruccion { margin: 0.4rem 0 0; font-size: 1rem; }
+    .tarjeta-qr .enlace { margin: 0.3rem 0 0; font-size: 0.65rem; color: #777; word-break: break-all; }
+    #zona-impresion { display: none; }
+    @media print {
+      body { padding: 0; background: #fff; }
+      body > :not(#zona-impresion) { display: none !important; }
+      #zona-impresion { display: grid; grid-template-columns: repeat(2, 9cm); gap: 1cm; justify-content: center; }
+      .tarjeta-qr { break-inside: avoid; }
+    }
   </style>
+  <!-- Librería para dibujar códigos QR (sin servidor externo: el QR se genera en el navegador). -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
   <script type="module" src="panel.js"></script>
 </head>
 <body>
@@ -53,6 +71,7 @@
 
     <section>
       <h2>Mesas</h2>
+      <button id="btn-imprimir-qr" type="button">Imprimir QR de todas las mesas</button>
       <table>
         <thead><tr><th>Mesa</th><th>Enlace del QR (web del cliente)</th><th>Atención</th><th>Acciones</th></tr></thead>
         <tbody id="tabla-mesas"></tbody>
@@ -72,5 +91,15 @@
       </table>
     </section>
   </div>
+
+  <dialog id="dialogo-qr">
+    <div id="contenido-qr"></div>
+    <div class="acciones-qr">
+      <button id="btn-imprimir-uno" type="button">Imprimir</button>
+      <button id="btn-cerrar-qr" type="button">Cerrar</button>
+    </div>
+  </dialog>
+
+  <div id="zona-impresion"></div>
 </body>
 </html>

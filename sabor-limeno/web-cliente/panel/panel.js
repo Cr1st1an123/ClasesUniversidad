@@ -237,6 +237,41 @@ function cambiarEstado(atencionId, pedido, nuevo, pideMotivo) {
   }));
 }
 
+// ---------- Códigos QR de las mesas ----------
+// Cada QR contiene directamente el enlace de su mesa (QR estático): no depende de ningún sitio externo.
+
+function tarjetaQr(mesa) {
+  const enlace = enlaceMesa(mesa.id);
+  const qr = qrcode(0, "M"); // 0 = tamaño automático; "M" = corrección de errores media
+  qr.addData(enlace);
+  qr.make();
+  const dibujo = el("div");
+  dibujo.innerHTML = qr.createSvgTag({ cellSize: 8, margin: 4, scalable: true });
+  return el("div", { className: "tarjeta-qr" },
+    el("p", { className: "marca" }, "Sabor Limeño"),
+    el("p", { className: "numero" }, `Mesa ${mesa.numero}`),
+    dibujo.firstElementChild,
+    el("p", { className: "instruccion" }, "Escanee para ver la carta y pedir"),
+    el("p", { className: "enlace" }, enlace));
+}
+
+let mesaQr = null;
+function mostrarQr(mesa) {
+  mesaQr = mesa;
+  $("contenido-qr").replaceChildren(tarjetaQr(mesa));
+  $("dialogo-qr").showModal();
+}
+
+function imprimir(mesasAImprimir) {
+  $("zona-impresion").replaceChildren(...mesasAImprimir.map(tarjetaQr));
+  $("dialogo-qr").close();
+  window.print();
+}
+
+$("btn-cerrar-qr").addEventListener("click", () => $("dialogo-qr").close());
+$("btn-imprimir-uno").addEventListener("click", () => imprimir([mesaQr]));
+$("btn-imprimir-qr").addEventListener("click", () => imprimir(mesas.filter((m) => m.activa !== false)));
+
 // ---------- Pantalla ----------
 
 function renderMesas() {
@@ -249,7 +284,8 @@ function renderMesas() {
     const enlace = enlaceMesa(m.id);
     return el("tr", {},
       el("td", {}, `Mesa ${m.numero}`),
-      el("td", {}, el("a", { href: enlace, target: "_blank" }, enlace)),
+      el("td", {}, el("a", { href: enlace, target: "_blank" }, enlace), " ",
+        el("button", { onclick: () => mostrarQr(m) }, "Ver QR")),
       el("td", {}, m.atencionId ? "Abierta" : "Libre",
         atencion?.cuentaSolicitada ? el("div", { className: "alerta" }, "¡Cuenta solicitada!") : null),
       el("td", {}, acciones));

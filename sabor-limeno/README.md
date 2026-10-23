@@ -111,8 +111,14 @@ Quedarán publicados:
 - **Panel de pruebas:** `https://TU-PROYECTO.web.app/panel/`. Funciona sin servidor local, desde cualquier computadora o tablet;
   solo pueden usarlo los usuarios registrados en la colección `usuarios`.
 
-Abriendo el panel desde la dirección publicada, la columna *Enlace del QR* ya muestra el enlace público de cada mesa:
-cópialo, genera el QR en cualquier generador gratuito e imprímelo.
+### Códigos QR de las mesas
+Abre el panel desde la dirección publicada (`https://TU-PROYECTO.web.app/panel/`) para que los QR lleven el enlace público:
+- **Ver QR** (en cada mesa): muestra el QR de esa mesa; con **Imprimir** sale solo ese.
+- **Imprimir QR de todas las mesas**: una hoja con todas las tarjetas (2 por fila), listas para recortar y pegar.
+
+El QR de cada mesa no cambia: se imprime una sola vez. Si usas un generador externo, elige un QR **estático**:
+muchos sitios crean QR "dinámicos" que apuntan a un enlace propio del sitio, salen casi iguales entre sí, pueden llevar a
+otra mesa si se edita el destino y dejan de funcionar cuando vence la prueba gratuita.
 
 Cada vez que cambies algo de la web o del panel, vuelve a ejecutar `firebase deploy --only hosting`.
 
