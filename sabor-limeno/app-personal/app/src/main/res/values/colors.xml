@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores de Sabor Limeño (los mismos de la web del cliente) -->
+    <color name="crema">#F6EFE6</color>
+    <color name="superficie">#FFFDF9</color>
+    <color name="borde">#E6DACB</color>
+    <color name="texto">#2B211C</color>
+    <color name="texto_suave">#6E625A</color>
+    <color name="terracota">#B5442A</color>
+    <color name="terracota_oscuro">#8F3520</color>
+    <color name="verde">#2E7D4F</color>
+    <color name="verde_fondo">#E3F2E8</color>
+    <color name="ambar">#8A5A00</color>
+    <color name="ambar_fondo">#FDF0D5</color>
+    <color name="azul">#2F4F86</color>
+    <color name="azul_fondo">#E8EEF8</color>
+    <color name="naranja_fondo">#FDE7DC</color>
+    <color name="rojo">#B3261E</color>
+    <color name="rojo_fondo">#FBE4E1</color>
+</resources>

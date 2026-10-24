@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Tema claro siempre, para que los colores se lean igual en modo oscuro. -->
+    <style name="Base.Theme.SaborLimeno" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/terracota</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/terracota_oscuro</item>
+        <item name="android:colorBackground">@color/crema</item>
+        <item name="colorSurface">@color/superficie</item>
+        <item name="colorOnSurface">@color/texto</item>
+        <item name="android:statusBarColor">@color/terracota_oscuro</item>
+    </style>
+
+    <style name="Theme.SaborLimeno" parent="Base.Theme.SaborLimeno" />
+</resources>

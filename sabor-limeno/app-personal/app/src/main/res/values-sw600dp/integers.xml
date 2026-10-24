@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tablet (pantallas de 600dp o más) -->
+    <integer name="columnas_mesas">5</integer>
+    <integer name="columnas_pedidos">2</integer>
+</resources>

@@ -1,4 +1,4 @@
-# Sabor Limeño — Web móvil del cliente
+# Sabor Limeño — Web móvil del cliente y app del personal
 
 Parte web del proyecto *Aplicación móvil para la gestión de pedidos y cuentas en el restaurante Sabor Limeño*.
 El cliente escanea el QR de su mesa y, sin instalar nada, puede ver la carta, enviar pedidos, seguir su estado y solicitar la cuenta.
@@ -19,7 +19,9 @@ sabor-limeno/
 │   └── panel/                ← panel TEMPORAL que simula al personal (se publica en /panel/)
 │       ├── index.html
 │       └── panel.js
+├── app-personal/             ← app Android del personal (Java) · ver app-personal/GUIA.md
 ├── firestore.rules           ← reglas de seguridad de la base de datos
+├── firestore.indexes.json    ← índice para consultar los pedidos de todas las mesas
 └── firebase.json             ← configuración de Firebase CLI
 ```
 
@@ -104,7 +106,7 @@ Requiere [Node.js](https://nodejs.org) instalado. En una terminal, dentro de `sa
 npm install -g firebase-tools
 firebase login
 firebase use --add            (elige tu proyecto)
-firebase deploy --only hosting,firestore:rules
+firebase deploy --only hosting,firestore
 ```
 Quedarán publicados:
 - **Web del cliente:** `https://TU-PROYECTO.web.app` (cada mesa: `https://TU-PROYECTO.web.app/?m=ID_DE_LA_MESA`).

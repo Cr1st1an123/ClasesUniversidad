@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Teléfono -->
+    <integer name="columnas_mesas">3</integer>
+    <integer name="columnas_pedidos">1</integer>
+</resources>

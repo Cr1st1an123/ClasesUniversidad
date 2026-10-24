@@ -94,5 +94,11 @@ service cloud.firestore {
               && request.resource.data.fechaCancelacion == request.time);
       }
     }
+
+    // La app Android del personal consulta los pedidos de todas las mesas a la vez
+    // (consulta de grupo de colecciones "pedidos"): solo el personal puede hacerla.
+    match /{ruta=**}/pedidos/{pedidoId} {
+      allow read: if esPersonal();
+    }
   }
 }
