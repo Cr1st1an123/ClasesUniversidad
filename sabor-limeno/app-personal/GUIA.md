@@ -95,7 +95,7 @@ Copia los archivos de esta carpeta (`app-personal/app/src/main/`) a la **misma r
 | `res/layout/` (5 archivos) | `res/layout/` — reemplaza `activity_main.xml` |
 | `res/values/` (`colors.xml`, `themes.xml`, `integers.xml`, `dimens.xml`) | `res/values/` — reemplaza `colors.xml` y `themes.xml`; **no toques** `strings.xml` |
 | `res/values-night/themes.xml` | `res/values-night/` — reemplaza |
-| `res/values-sw600dp/` (carpeta completa) | `res/` — carpeta nueva (valores para tablet) |
+| `res/values-sw600dp/` (carpeta completa) | dentro de `res/`, junto a `values/` (queda `res/values-sw600dp/`): valores para tablet |
 | `res/drawable/fondo_etiqueta.xml` | `res/drawable/` |
 | `AndroidManifest.xml` | reemplaza el tuyo |
 
